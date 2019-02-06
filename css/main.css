@@ -3,5 +3,13 @@ body {
 }
 
 canvas {
-  border: 1px solid black;
+  border: 5px solid black;
+  display: block;
+  margin: 0 auto;
+}
+
+.instructions {
+  text-align: center;
+  padding: 6px;
+  font-family: sans-serif;
 }

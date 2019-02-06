@@ -13,6 +13,7 @@ class Player {
   }
 
   draw() {
+    this.c.fillStyle = 'orange';
     this.c.fillRect(this.x, this.y, this.width, this.height);
   }
 

@@ -11,10 +11,10 @@ class Bubble {
   }
 
   draw(){
+    this.c.fillStyle = '#55b8c1';
     this.c.beginPath();
     this.c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-    this.c.fillStyle = 'orange';
-    this.c.stroke();
+    this.c.fill();
   }
 
   update(){
@@ -34,4 +34,4 @@ class Bubble {
 
 }
 
-module.exports = Bubble;
+export default Bubble;
