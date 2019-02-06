@@ -25,7 +25,7 @@ This app will consist of:
 - Ability to toggle sound
 - The name of the game and the level number will be displayed above the playing window.
 
-![wireframes](https://github.com/appacademy/ny-portfolio-curriculum/blob/master/javascript-project/js-proposal-wireframe.jpg)
+![wireframes](https://github.com/tseleski/DoodlePop/blob/master/js-proposal-wireframe.png)
 
 ### Architecture and Technologies
 
