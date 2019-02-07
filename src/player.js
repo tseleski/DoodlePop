@@ -4,7 +4,7 @@ class Player {
     this.gameHeight = gameHeight;
     this.width = 20;
     this.height = 40;
-    this.x = x;
+    this.x = gameWidth/2;
     this.dx = dx;
     this.y = gameHeight - this.height;
     this.moving = false;

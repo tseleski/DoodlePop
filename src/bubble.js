@@ -8,6 +8,9 @@ class Bubble {
     this.radius = radius;
     this.dx = dx;
     this.dy = dy;
+    this.gravity = 0.2;
+    this.damping = 0.9;
+    this.traction = 0.8;
   }
 
   draw(){
@@ -25,6 +28,8 @@ class Bubble {
     if (this.y + this.radius > this.gameHeight || this.y - this.radius < 0) {
       this.dy = -this.dy;
     }
+
+    // this.dy += this.gravity;
 
     this.x += this.dx;
     this.y += this.dy;
