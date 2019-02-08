@@ -1,9 +1,10 @@
 class Arrow {
-  constructor(ctx, gameWidth, gameHeight, pos){
-    this.c = ctx;
-    this.gameHeight = gameHeight;
-    this.gameWidth = gameWidth;
-    this.x = pos;
+  constructor(game){
+    this.c = game.context;
+    this.gameHeight = game.height;
+    this.gameWidth = game.width;
+    this.x = game.player.x;
+    this.startHeight = game.player.height;
   }
 
   shoot(){
@@ -11,10 +12,10 @@ class Arrow {
   }
 
   draw(){
-    for (let i = this.gameHeight - 40; i > 0; i--) {
+    for (let i = this.gameHeight - this.startHeight; i > 0; i--) {
       this.c.beginPath();
-      this.c.moveTo(this.x+10, this.gameHeight-40);
-      this.c.lineTo(this.x+10, i);
+      this.c.moveTo(this.x, this.gameHeight-this.startHeight);
+      this.c.lineTo(this.x, i);
       this.c.stroke();
     }
   }
