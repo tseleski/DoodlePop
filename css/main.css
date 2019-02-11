@@ -7,13 +7,41 @@ body {
 }
 
 canvas {
-  border: 5px solid black;
+  border: 3px solid black;
   display: block;
   margin: 0 auto;
+}
+
+.title {
+  /* font-family: 'Handlee', regular; */
+  /* font-family: 'Lobster Two', cursive; */
+  font-family: 'Permanent Marker', cursive;
+  font-size: 36px;
+  text-align: center;
 }
 
 .instructions {
   text-align: center;
   padding: 6px;
-  font-family: sans-serif;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+.icons {
+  display: flex;
+  justify-content: space-between;
+  width: 500px;
+  margin: 0 auto;
+}
+
+ul li {
+  list-style-type: none;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 16px;
+  text-shadow: 2em;
+}
+
+a {
+  text-decoration: none;
 }

@@ -1,6 +1,9 @@
+import * as Util from './utils';
+
 class Bubble {
-  constructor(game, x, y, radius, dx, dy){
+  constructor(game, x, y, radius, dx, dy, color="blue"){
     this.c = game.context;
+    this.game = game;
     this.gameWidth = game.width;
     this.gameHeight = game.height;
     this.x = x;
@@ -8,18 +11,20 @@ class Bubble {
     this.radius = radius;
     this.dx = dx;
     this.dy = dy;
-    this.gravity = 0.2;
+    this.gravity = 0.6125;
     this.damping = 0.9;
-    this.traction = 0.8;
+    this.color = color;
   }
 
   draw(){
-    var img = new Image();
-    img.src = '../images/bubble.png';
-    this.c.drawImage(img, 0, 0, 299, 299, this.x, this.y, this.radius, this.radius);
     // var img = new Image();
-    // img.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAAB50RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNS4xqx9I6wAAABR0RVh0Q3JlYXRpb24gVGltZQAxLzQvMTJldbXMAAABBklEQVQ4jY3T0UrDQBCF4S9NpFqLCIqi6I0Xvv+DiXhTm2wT40Vm6Vqr6cIQdmf3nzlnSIVH3OALH3hHi9EJq8YLXvGEJbqI4RRAg0s84x4PWMTjN6S5Thr08eguoiqqz0JqrKKLG9ziKoAdPufk1EEfovIK11jHvg1IMpl8FDBgG9GbjFxHV6KDLXbHIHUcpri0iYtnBWRR5H9B6viOkdwWug8hXUjaKUytC9gYEjIk2Y/5opDTxr3xEFBCsnldVD+PWEQHXYYcAvIa/BxjVUCq6K5D/xcgQ1IhpzJNaBn5hPQfgMnxbG6Ksyak9GjnABnS2/9keYw9ts0JACY5G3tv1ibD0zcaOGcX9fhvhwAAAABJRU5ErkJggg==";
-    // this.c.drawImage(img, x, y);
+    // img.src = '../images/bubble.png';
+    // this.c.drawImage(img, 0, 0, 299, 299, this.x, this.y, this.radius, this.radius);
+    this.c.beginPath();
+    this.c.strokeStyle = this.color;
+    this.c.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+    this.c.lineWidth = 3;
+    this.c.stroke();
   }
 
   // draw(){
@@ -31,20 +36,46 @@ class Bubble {
 
 
   update(){
+    this.dy += this.gravity;
+    this.x += this.dx;
+    this.y += this.dy;
+    
     if (this.x + this.radius > this.gameWidth || this.x < 0){
       this.dx = -this.dx;
     }
 
-    if (this.y + this.radius > this.gameHeight || this.y < 0) {
+    if (this.y + this.radius > this.gameHeight || this.y < 40) {
+      this.y = this.gameHeight - this.radius;
       this.dy = -this.dy;
     }
 
-    // this.dy += this.gravity;
-
-    this.x += this.dx;
-    this.y += this.dy;
-
+    if(Util.collidedWithChar(this, this.game.player)){
+      // console.log("hit player");
+      this.game.lives--;
+    }
+    if (this.game.arrows[0]){
+      if (Util.collidedWithArrow(this, this.game.arrows[0])) {
+        // console.log("hit arrow");
+        this.game.removeObject(this.game.arrows[0]);
+        this.split();
+      } 
+    }
+    if (this.y < 62 && ((this.x-20)%40) === 0){
+      // console.log("hit spike");
+      this.split();
+    }
     this.draw();
+  }
+
+  split(){
+    if(this.radius > 13 && this.y > 62){
+      this.game.addObject(new Bubble(this.game, this.x, this.y, this.radius / 2, this.dx * 1.1, this.dy, this.color));
+      this.game.addObject(new Bubble(this.game, this.x, this.y, this.radius / 2, -this.dx * 1.1, this.dy, this.color));
+    } else if (this.radius > 10 && this.y <= 62){
+      this.game.addObject(new Bubble(this.game, this.x, 70, this.radius / 2, this.dx * 1.1, -4, this.color));
+      this.game.addObject(new Bubble(this.game, this.x, 70, this.radius / 2, -this.dx * 1.1, -4, this.color));
+    }
+    this.game.removeObject(this);
   }
 
 

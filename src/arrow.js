@@ -1,10 +1,13 @@
 class Arrow {
-  constructor(game){
+  constructor(game, pos){
+    this.game = game;
     this.c = game.context;
+    this.x = pos;
     this.gameHeight = game.height;
     this.gameWidth = game.width;
-    this.x = game.player.x;
     this.startHeight = game.player.height;
+    this.y = this.gameHeight - this.startHeight;
+    this.dy = 9;
   }
 
   shoot(){
@@ -12,12 +15,23 @@ class Arrow {
   }
 
   draw(){
-    for (let i = this.gameHeight - this.startHeight; i > 0; i--) {
-      this.c.beginPath();
-      this.c.moveTo(this.x, this.gameHeight-this.startHeight);
-      this.c.lineTo(this.x, i);
-      this.c.stroke();
+    this.c.beginPath();
+    this.c.moveTo(this.x, this.gameHeight);
+    this.c.lineTo(this.x, this.y);
+    this.c.closePath();
+    this.c.lineWidth = 0.50;
+    this.c.strokeStyle = '#666666';
+    this.c.stroke();
+  }
+
+  update(){
+    this.y -= this.dy;
+
+    if (this.y < 20){
+      this.game.removeObject(this);
     }
+
+    this.draw();
   }
 
 }

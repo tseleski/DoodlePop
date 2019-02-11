@@ -8,7 +8,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack --watch --mode=development"
+    "start": "webpack --watch --mode=development",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
   },
   "repository": {
     "type": "git",
@@ -24,5 +26,8 @@
   "devDependencies": {
     "webpack": "^4.29.2",
     "webpack-cli": "^3.2.3"
+  },
+  "dependencies": {
+    "gh-pages": "^2.0.1"
   }
 }

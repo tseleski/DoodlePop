@@ -1,6 +1,8 @@
+import Arrow from './arrow';
 
 class Player {
-  constructor(game, dx = 3, x = 200) {
+  constructor(game, dx = 3) {
+    this.game = game;
     this.gameWidth = game.width;
     this.gameHeight = game.height;
     this.width = 20;
@@ -13,19 +15,19 @@ class Player {
     this.c = game.context;
   }
 
-  draw() {
-    // this.c.fillStyle = 'orange';
-    // this.c.fillRect(this.x, this.y, this.width, this.height);
-    // var img = new Image();
-    // img.src = '../images/stick2.jpeg';
-    // this.c.drawImage(img, this.x,10);
-    this.c.beginPath();
-    this.c.strokeStyle = "black"; // #000000
-    this.c.arc(this.x, this.gameHeight-55, 15, 0, Math.PI * 2, true);
-    this.c.lineWidth = 3;
-    this.c.stroke(); //fill the circle  
+  shootArrow(){
+    if (this.game.arrows.length < 1){
+      this.game.addObject(new Arrow(this.game, this.x));
+    }
+  }
 
+  draw() { 
+    // head
     this.c.beginPath();
+    this.c.strokeStyle = "black";
+    this.c.fillStyle = '#f9f8f7'; 
+    this.c.arc(this.x, this.gameHeight-55, 15, 0, Math.PI * 2, true);
+    this.c.fill();
     this.c.lineWidth = 3;
     this.c.stroke();
 
@@ -57,10 +59,16 @@ class Player {
 
   moveRight() {
     this.x += this.dx;
+    if (this.x > this.gameWidth - (this.width / 2)) {
+      this.x = this.gameWidth - (this.width / 2);
+    }
   }
 
   moveLeft() {
     this.x -= this.dx;
+    if (this.x < this.width / 2) {
+      this.x = this.width / 2;
+    }
   }
 
   update() {
@@ -87,4 +95,4 @@ class Player {
 }
 
 
-module.exports = Player;
+export default Player;

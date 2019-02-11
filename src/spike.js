@@ -39,7 +39,7 @@ class Spike {
       this.c.lineWidth = 1;
       this.c.strokeStyle = '#666666';
       this.c.stroke();
-      this.c.fillStyle = '#f2dc4d';
+      this.c.fillStyle = '#f4e5c3';
       this.c.fill();
       this.c.beginPath();
       this.c.moveTo(i - 30, 40);

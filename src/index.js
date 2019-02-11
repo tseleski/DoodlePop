@@ -31,7 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
     keys[e.key] = false;
   }
 
-
   function animate() {
     requestAnimationFrame(animate);
     c.clearRect(0, 0, innerWidth, innerHeight);
@@ -43,10 +42,8 @@ document.addEventListener("DOMContentLoaded", () => {
       game.player.moveRight();
     }
     if (keys[" "]){
-      let arrow = new Arrow(game);
-      arrow.shoot();
+      game.player.shootArrow();
     }
-
   }
 
   animate();
