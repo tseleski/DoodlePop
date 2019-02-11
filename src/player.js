@@ -40,20 +40,21 @@ class Player {
 
     //arms
     this.c.beginPath();
-    this.c.strokeStyle = "black";
     this.c.moveTo(this.x, this.gameHeight - 40);
     this.c.lineTo(this.x-10, this.gameHeight - 20);
     this.c.moveTo(this.x, this.gameHeight - 40);
     this.c.lineTo(this.x+10, this.gameHeight - 20);
+    this.c.strokeStyle = "black";
     this.c.stroke();
 
     //legs
     this.c.beginPath();
-    this.c.strokeStyle = "black";
     this.c.moveTo(this.x, this.gameHeight-25);
     this.c.lineTo(this.x+10, this.gameHeight);
     this.c.moveTo(this.x, this.gameHeight-25);
     this.c.lineTo(this.x-10, this.gameHeight);
+    this.c.closePath();
+    this.c.strokeStyle = "black";
     this.c.stroke();
   }
 

@@ -3,7 +3,20 @@ body {
   /* background-image: url("https://www.google.com/url?sa=i&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwjIg7nCmqvgAhWGTN8KHRHRBCIQjRx6BAgBEAU&url=https%3A%2F%2Fwww.istockphoto.com%2Fphotos%2Floose-leaf-paper&psig=AOvVaw2d5ue1fU78Da0nNPhfaSQW&ust=1549683340919000"); */
   /* background-image: url(../images/looseleaf.jpg); */
   background-repeat: no-repeat;
+  background-image: url("../images/notebook.jpg");
   background-size: cover;
+  background-position: center;
+}
+
+.main-content {
+  display: flex;
+  width: 100vw;
+  margin: 0 auto;
+}
+
+.game {
+  width: 66%;
+  margin-left: 250px;
 }
 
 canvas {
@@ -15,9 +28,11 @@ canvas {
 .title {
   /* font-family: 'Handlee', regular; */
   /* font-family: 'Lobster Two', cursive; */
-  font-family: 'Permanent Marker', cursive;
+  /* font-family: 'Permanent Marker', cursive; */
+  font-family: sans-serif;
   font-size: 36px;
   text-align: center;
+  margin: 10px 0px;
 }
 
 .instructions {
@@ -26,13 +41,31 @@ canvas {
   font-family: 'Permanent Marker', cursive;
   font-size: 18px;
   margin-bottom: 30px;
+  margin-top: 30px;
+  text-align: left;
+  -webkit-transform: rotate(-8deg);
+  -moz-transform: rotate(-8deg);
+  -ms-transform: rotate(-8deg);
+  -o-transform: rotate(-8deg);
 }
 
 .icons {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  width: 500px;
-  margin: 0 auto;
+  align-items: center;
+  height: 200px;
+  margin: auto;
+  width: 33%;
+}
+
+.fab, .fas {
+  font-size: 45px;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
 }
 
 ul li {
@@ -44,4 +77,5 @@ ul li {
 
 a {
   text-decoration: none;
+  color: black;
 }

@@ -35,7 +35,7 @@ class Game {
 
   drawBackground(){
     let img = new Image();
-    img.src = '../images/looseleaf.jpg';
+    img.src = './images/looseleaf.jpg';
     this.context.drawImage(img, 80, 30, 400, 300, 0, 0, this.width, this.height);
   }
 
@@ -55,18 +55,18 @@ class Game {
     this.arrows.forEach(arrow => {
       arrow.update();
     });
-    this.player.draw();
     this.bubbles.forEach(bubble => {
       bubble.update();
     });
-    this.spikes.draw();
     this.printLives();
     this.checkBeatLevel();
+    this.spikes.draw();
+    this.player.draw();
   }
 
   printLives(){
     this.context.font = "16px Arial";
-    this.context.fillStyle = 'gray';
+    this.context.fillStyle = 'black';
     this.context.fillText(`Lives: ${this.lives}`, 10, this.height-10);
   }
 

@@ -7,13 +7,13 @@ import Game from './game';
 
 document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.querySelector('canvas');
-  canvas.width = 800;
-  canvas.height = 600;
+  canvas.width = 750;
+  canvas.height = 550;
 
   const c = canvas.getContext("2d");
 
-  const GAME_WIDTH = 800;
-  const GAME_HEIGHT = 600;
+  const GAME_WIDTH = 750;
+  const GAME_HEIGHT = 550;
 
   const game = new Game(c, GAME_WIDTH, GAME_HEIGHT);
   // game.start();

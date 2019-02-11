@@ -10,7 +10,6 @@ class Spike {
     while (i <= this.gameWidth+40){
       // top pencils
       this.c.fillStyle = 'orange';
-      this.c.strokeStyle = '#666666';
       this.c.stroke();
       this.c.fillRect(i-40, 0, i, 20);
 
@@ -42,14 +41,14 @@ class Spike {
       this.c.fillStyle = '#f4e5c3';
       this.c.fill();
       this.c.beginPath();
+      this.c.fillStyle = '#666666';
+      this.c.strokeStyle = '#666666';
       this.c.moveTo(i - 30, 40);
       this.c.lineTo(i-10, 40);
       this.c.lineTo(i - 20, 60);
       this.c.closePath();
       this.c.lineWidth = 0.25;
-      this.c.strokeStyle = '#666666';
       this.c.stroke();
-      this.c.fillStyle = '#666666';
       this.c.fill();
       i += 40;
     }

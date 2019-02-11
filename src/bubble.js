@@ -1,7 +1,7 @@
 import * as Util from './utils';
 
 class Bubble {
-  constructor(game, x, y, radius, dx, dy, color="blue"){
+  constructor(game, x, y, radius, dx, dy, color){
     this.c = game.context;
     this.game = game;
     this.gameWidth = game.width;
@@ -12,7 +12,6 @@ class Bubble {
     this.dx = dx;
     this.dy = dy;
     this.gravity = 0.6125;
-    this.damping = 0.9;
     this.color = color;
   }
 
@@ -21,9 +20,10 @@ class Bubble {
     // img.src = '../images/bubble.png';
     // this.c.drawImage(img, 0, 0, 299, 299, this.x, this.y, this.radius, this.radius);
     this.c.beginPath();
-    this.c.strokeStyle = this.color;
     this.c.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+    // this.c.closePath();
     this.c.lineWidth = 3;
+    this.c.strokeStyle = this.color;
     this.c.stroke();
   }
 
