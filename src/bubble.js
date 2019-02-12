@@ -20,8 +20,10 @@ class Bubble {
     // img.src = '../images/bubble.png';
     // this.c.drawImage(img, 0, 0, 299, 299, this.x, this.y, this.radius, this.radius);
     this.c.beginPath();
+    this.c.fillStyle = '#f9f8f7'; 
     this.c.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
     // this.c.closePath();
+    this.c.fill();
     this.c.lineWidth = 3;
     this.c.strokeStyle = this.color;
     this.c.stroke();
@@ -36,11 +38,25 @@ class Bubble {
 
 
   update(){
+    if(Util.collidedWithChar(this, this.game.player)){
+      this.game.removeObject(this);
+      this.game.resetLevel();
+    }
+    if (this.game.arrows[0]){
+      if (Util.collidedWithArrow(this, this.game.arrows[0])) {
+        this.game.removeObject(this.game.arrows[0]);
+        this.split();
+      } 
+    }
+    if (this.y < 62 && ((this.x-20)%40) === 0){
+      this.split();
+    }
+    
     this.dy += this.gravity;
     this.x += this.dx;
     this.y += this.dy;
     
-    if (this.x + this.radius > this.gameWidth || this.x < 0){
+    if (this.x + this.radius > this.gameWidth || this.x-this.radius < 0){
       this.dx = -this.dx;
     }
 
@@ -49,28 +65,13 @@ class Bubble {
       this.dy = -this.dy;
     }
 
-    if(Util.collidedWithChar(this, this.game.player)){
-      // console.log("hit player");
-      this.game.lives--;
-    }
-    if (this.game.arrows[0]){
-      if (Util.collidedWithArrow(this, this.game.arrows[0])) {
-        // console.log("hit arrow");
-        this.game.removeObject(this.game.arrows[0]);
-        this.split();
-      } 
-    }
-    if (this.y < 62 && ((this.x-20)%40) === 0){
-      // console.log("hit spike");
-      this.split();
-    }
     this.draw();
   }
 
   split(){
     if(this.radius > 13 && this.y > 62){
-      this.game.addObject(new Bubble(this.game, this.x, this.y, this.radius / 2, this.dx * 1.1, this.dy, this.color));
-      this.game.addObject(new Bubble(this.game, this.x, this.y, this.radius / 2, -this.dx * 1.1, this.dy, this.color));
+      this.game.addObject(new Bubble(this.game, this.x, this.y, this.radius / 2, this.dx * 1.1, -1 * Math.abs(this.dy), this.color));
+      this.game.addObject(new Bubble(this.game, this.x, this.y, this.radius / 2, -this.dx * 1.1, -1 * Math.abs(this.dy), this.color));
     } else if (this.radius > 10 && this.y <= 62){
       this.game.addObject(new Bubble(this.game, this.x, 70, this.radius / 2, this.dx * 1.1, -4, this.color));
       this.game.addObject(new Bubble(this.game, this.x, 70, this.radius / 2, -this.dx * 1.1, -4, this.color));

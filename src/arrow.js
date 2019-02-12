@@ -19,7 +19,7 @@ class Arrow {
     this.c.moveTo(this.x, this.gameHeight);
     this.c.lineTo(this.x, this.y);
     this.c.closePath();
-    this.c.lineWidth = 0.50;
+    this.c.lineWidth = 0.75;
     this.c.strokeStyle = '#666666';
     this.c.stroke();
   }

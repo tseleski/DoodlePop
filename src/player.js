@@ -73,16 +73,6 @@ class Player {
   }
 
   update() {
-    // if (this.x + this.width > this.gameWidth || this.x < 0) {
-    //   this.dx = -this.dx;
-    // }
-
-    // if (this.moving){
-    //   this.x += this.dx;
-    // }
-
-    // this.x += this.dx;
-
     if(this.x < this.width/2){
       this.x = this.width/2;
     }
