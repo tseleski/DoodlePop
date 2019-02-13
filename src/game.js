@@ -24,9 +24,9 @@ class Game {
     this.instructions = document.getElementsByClassName("instruction-list")[0];
     this.play = this.play.bind(this);
     this.drawBackground = this.drawBackground.bind(this);
-    this.listenForP = this.listenForP.bind(this);
     this.gameLoop = this.gameLoop.bind(this);
     this.printMessage = this.printMessage.bind(this);
+    this.beatLevel= false;
   }
 
   start(){
@@ -96,8 +96,17 @@ class Game {
   }
 
   checkBeatLevel(){
-    if(this.bubbles.length < 1){
+    if (this.level === 0 || (this.bubbles.length < 1 && this.level == 6)) {
       this.startNextLevel();
+    } else if (this.bubbles.length < 1 && this.arrows.length < 1 && this.level > 0){
+      this.beatLevel = true;
+      this.playing = false;
+      setTimeout(() => {
+        this.beatLevel = false;
+        this.playing = true;
+        this.startNextLevel();
+        this.play();
+      }, 1000);
     }
   }
 
@@ -122,7 +131,7 @@ class Game {
   }
 
   gameOver(){
-    return !this.playing && !this.paused && (this.level > 0 && this.level < 7);
+    return this.lives === 0 && !this.playing && !this.paused && (this.level > 0 && this.level < 7);
   }
 
   resetLevel(){
@@ -143,6 +152,7 @@ class Game {
   }
 
   gameLoop(){
+    this.checkBeatLevel();
     if (this.keys["ArrowLeft"]) {
       this.player.moveLeft();
     }
@@ -151,12 +161,6 @@ class Game {
     }
     if (this.keys[" "]) {
       this.player.shootArrow();
-    }
-    if (this.keys["p"]) {
-      this.paused = !this.paused;
-      this.playing = !this.playing;
-      this.keys["p"] = false;
-      this.listenForP();
     }
     this.drawBackground();
     this.arrows.forEach(arrow => {
@@ -167,24 +171,11 @@ class Game {
       bubble.update();
     });
     this.spikes.draw();
-    this.printLevel();
+    if(this.level < 7){
+      this.printLevel();
+    }
     this.printLives();
-    this.checkBeatLevel();
     this.checkLostLives();
-  }
-
-  listenForP(){
-    this.context.clearRect(0, 0, this.width, this.height);
-    this.printMessage("Paused");
-    if(this.keys["p"]) {
-      this.paused = !this.paused;
-      this.playing = !this.playing;
-      this.keys["p"] = false;
-      this.gameLoop();
-    }
-    if(this.paused){
-      requestAnimationFrame(this.listenForP);
-    }
   }
 
   printLives(){
@@ -224,19 +215,24 @@ class Game {
     if (this.playing) {
       this.context.clearRect(0, 0, this.width, this.height);
       this.gameLoop();
-    }
+    } 
     if (this.won()) {
-      this.context.clearRect(0, 0, this.width, this.height);
-      this.drawBackground();
-      this.player.draw();
-      this.spikes.draw();
       this.printMessage("You win!");
       this.play_again.classList.remove('hide');
+      return;
+    } 
+    if (this.beatLevel && this.level < 6) {
+      this.printMessage(`Level ${this.level + 1}`);
       return;
     } else if (this.gameOver()) {
       this.printMessage("Game Over");
       this.play_again.classList.remove('hide');
       return;
+    }
+    if (this.keys["p"]) {
+      this.playing = !this.playing;
+      this.keys["p"] = false;
+      this.printMessage('Paused');
     }
     requestAnimationFrame(this.play);
   }

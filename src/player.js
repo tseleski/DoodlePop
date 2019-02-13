@@ -1,7 +1,7 @@
 import Arrow from './arrow';
 
 class Player {
-  constructor(game, dx = 3) {
+  constructor(game, dx = 4) {
     this.game = game;
     this.gameWidth = game.width;
     this.gameHeight = game.height;
