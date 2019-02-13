@@ -37,19 +37,20 @@ class Game {
   }
 
   printInstructions(){
-    let line0 = "Instructions:";
+    let line0 = "Try to pop all the bubbles!!";
     let line1 = "Use the arrow keys to move from side to side.";
     let line2 = "Use the spacebar to shoot the bubbles.";
-    let line3 = "Try to get rid of all the bubbles to advance to the next level.";
-    let line4 = "Press 'p' to pause!";
+    let line3 = "If you get rid of all the bubbles, you will advance to the next level.";
+    let line4 = "Press 'p' to pause.";
     // this.context.fillStyle = "rgba(0, 0, 0, 0.4)";
     // this.context.fillRect(0, 0, this.width, this.height);
     this.context.font = "bold 16px sans-serif";
     this.context.fillStyle = 'black';
     this.context.textBaseline = 'middle';
     this.context.textAlign = 'center';
-    this.context.fillText(line0, this.width / 2, this.height / 3);
+    this.context.fillText(line0, this.width / 2, (this.height / 3)-20);
     this.context.font = "16px sans-serif";
+    this.context.fillText(" ", this.width / 2, (this.height / 3));
     this.context.fillText(line1, this.width / 2, (this.height / 3) + 20);
     this.context.fillText(line2, this.width / 2, (this.height / 3) + 40);
     this.context.fillText(line3, this.width / 2, (this.height / 3) + 60);
@@ -225,7 +226,12 @@ class Game {
       this.gameLoop();
     }
     if (this.won()) {
+      this.context.clearRect(0, 0, this.width, this.height);
+      this.drawBackground();
+      this.player.draw();
+      this.spikes.draw();
       this.printMessage("You win!");
+      this.play_again.classList.remove('hide');
       return;
     } else if (this.gameOver()) {
       this.printMessage("Game Over");

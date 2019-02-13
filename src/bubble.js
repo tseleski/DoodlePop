@@ -51,7 +51,7 @@ class Bubble {
     if (this.y < 62 && ((this.x-20)%40) === 0){
       this.split();
     }
-    
+
     this.dy += this.gravity;
     this.x += this.dx;
     this.y += this.dy;
@@ -69,9 +69,9 @@ class Bubble {
   }
 
   split(){
-    if(this.radius > 13 && this.y > 62){
-      this.game.addObject(new Bubble(this.game, this.x, this.y, this.radius / 2, this.dx * 1.1, -1 * Math.abs(this.dy), this.color));
-      this.game.addObject(new Bubble(this.game, this.x, this.y, this.radius / 2, -this.dx * 1.1, -1 * Math.abs(this.dy), this.color));
+    if(this.radius > 10 && this.y > 62){
+      this.game.addObject(new Bubble(this.game, this.x, this.y, this.radius-20, this.dx * 1.1, -1 * Math.abs(this.dy), this.color));
+      this.game.addObject(new Bubble(this.game, this.x, this.y, this.radius-20, -this.dx * 1.1, -1 * Math.abs(this.dy), this.color));
     } else if (this.radius > 10 && this.y <= 62){
       this.game.addObject(new Bubble(this.game, this.x, 70, this.radius / 2, this.dx * 1.1, -4, this.color));
       this.game.addObject(new Bubble(this.game, this.x, 70, this.radius / 2, -this.dx * 1.1, -4, this.color));
