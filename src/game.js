@@ -93,6 +93,8 @@ class Game {
     let img = new Image();
     img.src = './images/looseleaf.jpg';
     this.context.drawImage(img, 80, 30, 400, 300, 0, 0, this.width, this.height);
+    // this.context.fillStyle = "white";
+    // this.context.fillRect(0, 0, this.width, this.height);
   }
 
   checkBeatLevel(){
