@@ -27,6 +27,7 @@ class Game {
     this.gameLoop = this.gameLoop.bind(this);
     this.printMessage = this.printMessage.bind(this);
     this.beatLevel= false;
+    this.muted = false;
   }
 
   start(){
@@ -236,6 +237,10 @@ class Game {
       this.keys["p"] = false;
       this.printMessage('Paused');
     }
+    // if (this.keys["s"]) {
+    //   this.muted = !this.muted;
+    //   this.keys["s"] = false;
+    // }
     requestAnimationFrame(this.play);
   }
 

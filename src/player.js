@@ -17,6 +17,10 @@ class Player {
 
   shootArrow(){
     if (this.game.arrows.length < 1){
+      const whooshSound = new Audio("./sounds/whoosh.ogg");
+      if (!this.game.muted) {
+        whooshSound.play();
+      }
       this.game.addObject(new Arrow(this.game, this.x));
     }
   }

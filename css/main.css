@@ -15,6 +15,7 @@ body {
 
 .game {
   width: 60%;
+  position: relative;
 }
 
 .game-window {
@@ -39,7 +40,7 @@ canvas {
 
 .play-again-btn, .start-btn {
   position: absolute;
-  left: 45%;
+  left: calc(48% - 105px);
   top: 55%;
   z-index: 2;
   font-size: 24px;
@@ -53,7 +54,7 @@ canvas {
 }
 
 .start-btn {
-  left: 47%;
+  left: calc(49% - 73px);
 }
 
 .play-again-btn:hover, .start-btn:hover {
@@ -63,6 +64,10 @@ canvas {
 
 .play-again-btn.hide, .start-btn.hide, .instruction-list.hide {
   display: none;
+}
+
+.instruction-list {
+  padding: 0 35px;
 }
 
 .instructions {
@@ -75,6 +80,15 @@ canvas {
   padding: 0 20px;
   font-family: sans-serif; 
   font-family: 'Righteous', cursive;
+}
+
+.instructions li {
+  list-style-type: none;
+  font-family: 'Righteous', cursive;
+}
+
+.instructions .controls {
+  text-decoration: underline;
 }
 
 .name {
