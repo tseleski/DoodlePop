@@ -8,7 +8,7 @@ class Game {
   constructor(context, width, height){
     this.context = context;
     this.width = width;
-    this.height = height;
+    this.height = height - 40;
     this.player = new Player(this);
     this.bubbles = [];
     this.arrows = [];
@@ -28,6 +28,8 @@ class Game {
     this.printMessage = this.printMessage.bind(this);
     this.beatLevel= false;
     this.muted = false;
+    this.timer = this.width;
+    this.score = 0;
   }
 
   start(){
@@ -94,8 +96,6 @@ class Game {
     let img = new Image();
     img.src = './images/looseleaf.jpg';
     this.context.drawImage(img, 80, 30, 400, 300, 0, 0, this.width, this.height);
-    // this.context.fillStyle = "white";
-    // this.context.fillRect(0, 0, this.width, this.height);
   }
 
   checkBeatLevel(){
@@ -103,12 +103,25 @@ class Game {
       this.startNextLevel();
     } else if (this.bubbles.length < 1 && this.arrows.length < 1 && this.level > 0){
       this.beatLevel = true;
+      this.score += Math.floor(this.timer/6);
       this.playing = false;
       setTimeout(() => {
         this.beatLevel = false;
         this.playing = true;
         this.startNextLevel();
         this.play();
+      }, 1000);
+    }
+  }
+
+  checkTimer() {
+    if(this.timer <= this.width/2){
+      this.timer = this.width;
+      this.playing = false;
+      this.printMessage('Times Up');
+      setTimeout(() => {
+        this.resetLevel();
+        this.playing = true;
       }, 1000);
     }
   }
@@ -125,7 +138,7 @@ class Game {
 
   printMessage(msg){
     this.context.fillStyle = "rgba(0, 0, 0, 0.4)";
-    this.context.fillRect(0, 0, this.width, this.height);
+    this.context.fillRect(0, 0, this.width, this.height + 40);
     this.context.font = "70px Arial";
     this.context.fillStyle = 'white';
     this.context.textAlign = 'center';
@@ -139,6 +152,7 @@ class Game {
 
   resetLevel(){
     this.lives--;
+    this.timer = this.width;
     this.arrows = [];
     this.bubbles = [];
     this.player.x = this.width/2;
@@ -150,12 +164,14 @@ class Game {
       this.playing = false;
     }
     this.level++;
+    this.timer = this.width;
     this.player.x = this.width/2;
     startLevel(this, this.level);
   }
 
   gameLoop(){
     this.checkBeatLevel();
+    this.timer =  this.timer - 0.40;
     if (this.keys["ArrowLeft"]) {
       this.player.moveLeft();
     }
@@ -174,10 +190,14 @@ class Game {
       bubble.update();
     });
     this.spikes.draw();
+    this.printTimer();
     if(this.level < 7){
       this.printLevel();
     }
     this.printLives();
+    this.printScore();
+    this.printLine();
+    this.checkTimer();
     this.checkLostLives();
   }
 
@@ -185,12 +205,12 @@ class Game {
     this.context.font = "bold 16px sans-serif";
     this.context.fillStyle = 'black';
     this.context.textAlign = 'left';
-    this.context.fillText('LIVES:', 10, this.height-10);
+    this.context.fillText('LIVES:', 80, this.height + 20);
     let img = new Image();
     img.src = './images/eraser.png';
-    let startAtWidth = 70;
+    let startAtWidth = 150;
     for (let i = 0; i < this.lives; i++) {
-      this.context.drawImage(img, 10, 30, 1100, 1100, startAtWidth, this.height - 25, 25, 25);
+      this.context.drawImage(img, 10, 30, 1100, 1100, startAtWidth, this.height + 10, 25, 25);
       startAtWidth += 25;      
     }
   }
@@ -199,7 +219,31 @@ class Game {
     this.context.font = "bold 16px sans-serif";
     this.context.fillStyle = 'black';
     this.context.textAlign = 'left';
-    this.context.fillText(`Level ${this.level}`, 10, this.height - 30);
+    this.context.fillText(`Level ${this.level}`, 10, this.height + 20);
+  }
+
+  printScore() {
+    this.context.font = "bold 16px sans-serif";
+    this.context.fillStyle = 'black';
+    this.context.textAlign = 'left';
+    this.context.fillText(`Score: ${this.score}`, 285, this.height + 20);
+  }
+
+  printTimer() {
+    this.context.fillStyle = 'white';
+    this.context.fillRect(0, this.height, this.width, this.height + 40);
+    this.context.fillStyle = 'orange';
+    this.context.fillRect(this.width/2, this.height, this.timer-this.width/2, this.height+40);
+  }
+
+  printLine(){
+    this.context.beginPath();
+    this.context.moveTo(0, this.height);
+    this.context.lineTo(this.width, this.height);
+    this.context.closePath();
+    this.context.lineWidth = 3;
+    this.context.strokeStyle = 'black';
+    this.context.stroke();
   }
 
   restartGame(){
@@ -209,6 +253,7 @@ class Game {
     this.bubbles = [];
     this.arrows = [];
     this.lives = 5;
+    this.score = 0;
     this.playing = true;
     this.play_again.classList.add('hide');
     this.play();
@@ -216,7 +261,7 @@ class Game {
 
   play(){
     if (this.playing) {
-      this.context.clearRect(0, 0, this.width, this.height);
+      this.context.clearRect(0, 0, this.width, this.height + 40);
       this.gameLoop();
     } 
     if (this.won()) {

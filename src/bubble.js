@@ -68,6 +68,7 @@ class Bubble {
       this.game.addObject(new Bubble(this.game, this.x, 70, this.radius / 2, this.dx * 1.1, -4, this.color));
       this.game.addObject(new Bubble(this.game, this.x, 70, this.radius / 2, -this.dx * 1.1, -4, this.color));
     }
+    this.game.score += this.radius;
     this.game.removeObject(this);
   }
 
