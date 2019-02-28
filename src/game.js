@@ -161,6 +161,7 @@ class Game {
 
   startNextLevel(){
     if(this.level === 6){
+      this.score += (this.lives * 425);
       this.playing = false;
     }
     this.level++;
