@@ -282,10 +282,10 @@ class Game {
       this.keys["p"] = false;
       this.printMessage('Paused');
     }
-    // if (this.keys["s"]) {
-    //   this.muted = !this.muted;
-    //   this.keys["s"] = false;
-    // }
+    if (this.keys["s"]) {
+      this.muted = !this.muted;
+      this.keys["s"] = false;
+    }
     requestAnimationFrame(this.play);
   }
 
